@@ -37,7 +37,7 @@ cd SmartHire
 
 ### 2️⃣ Set up a virtual environment
 ```bash
-conda create --name smarthire-env python=3.12
+conda create --name smarthire-env python=3.13
 conda activate smarthire-env
 ```
 
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 ```
 
 ## ⚙️ Prerequisites
-- Python 3.12 or higher
+- Python 3.13 or higher
 - MongoDB (running locally or a cloud instance)
 - Required Python libraries (see requirements.txt)
 
