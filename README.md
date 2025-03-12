@@ -1,7 +1,14 @@
 # SmartHire  
 SmartHire is an AI-powered **resume screening and candidate ranking** system designed to streamline the hiring process. Using **LLM-powered justifications**, it analyzes resumes against job requirements and provides structured comparisons to help HR teams make data-driven hiring decisions.
 
-![SmartHire](SmartHire.png)
+![SmartHire]("UI.png")
+
+## Form
+![SmartHire]("Form.png")
+
+## Candidate Comparison 
+Candidature of Isabella Moore is AI Generated and is compared with the job requirements. Any resemblance to real persons, living or dead, is purely coincidental.
+![SmartHire]("Comparison.png")
 
 ## 🚀 Tech Stack  
 
@@ -37,7 +44,7 @@ cd SmartHire
 
 ### 2️⃣ Set up a virtual environment
 ```bash
-conda create --name smarthire-env python=3.12
+conda create --name smarthire-env python=3.13
 conda activate smarthire-env
 ```
 
@@ -59,7 +66,7 @@ pip install -r requirements.txt
 ```
 
 ## ⚙️ Prerequisites
-- Python 3.12 or higher
+- Python 3.13 or higher
 - MongoDB (running locally or a cloud instance)
 - Required Python libraries (see requirements.txt)
 
