@@ -11,6 +11,7 @@ Candidature of Isabella Moore, Jack Anderson, Emma Wilson, David Lee are all AI 
 Any resemblance to real persons, living or dead, is purely coincidental.
 
 ![SmartHire](Best Fit.png)
+
 ![SmartHire](Next Match.png)
 
 ## 🚀 Tech Stack  
