@@ -1,7 +1,14 @@
 # SmartHire  
 SmartHire is an AI-powered **resume screening and candidate ranking** system designed to streamline the hiring process. Using **LLM-powered justifications**, it analyzes resumes against job requirements and provides structured comparisons to help HR teams make data-driven hiring decisions.
 
-![SmartHire](SmartHire.png)
+![SmartHire]("UI.png")
+
+## Form
+![SmartHire]("Form.png")
+
+## Candidate Comparison 
+Candidature of Isabella Moore is AI Generated and is compared with the job requirements. Any resemblance to real persons, living or dead, is purely coincidental.
+![SmartHire]("Comparison.png")
 
 ## 🚀 Tech Stack  
 
