@@ -10,9 +10,9 @@ SmartHire is an AI-powered **resume screening and candidate ranking** system des
 Candidature of Isabella Moore, Jack Anderson, Emma Wilson, David Lee are all AI Generated. 
 Any resemblance to real persons, living or dead, is purely coincidental.
 
-![SmartHire](Best Fit.png)
+![SmartHire](BestFit.png)
 
-![SmartHire](Next Match.png)
+![SmartHire](NextMatch.png)
 
 ## 🚀 Tech Stack  
 
