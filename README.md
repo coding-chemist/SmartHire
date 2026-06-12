@@ -14,6 +14,12 @@ Any resemblance to real persons, living or dead, is purely coincidental.
 
 ![SmartHire](NextMatch.png)
 
+## 🏗️ Architecture
+
+![SmartHire Architecture](architecture.png)
+
+**Pipeline:** Resume upload → `pdfplumber` parse → structured candidate JSON → MongoDB store → **Groq Gemma 2-9B** analyst (Education Match · Experience Match · Skill Fit · Role Fit · SWOT) → ranker → HR dashboard for side-by-side comparison. The LLM produces evidence and scores. The human still decides.
+
 ## 🚀 Tech Stack  
 
 - ![Streamlit](https://img.shields.io/badge/Streamlit-1.43.1-red?logo=streamlit)  
@@ -97,6 +103,13 @@ The app will be available at http://localhost:8501.
 - 3️⃣ **AI-Powered Screening:** SmartHire ranks candidates based on the best match.
 - 4️⃣ **Review Justifications:** Compare candidates side by side with structured LLM-generated justifications.
 - 5️⃣ **Explore Alternative Matches:** View the next-best candidates under an expander section.
+
+## ⚠️ Known Limitations (v0.1)
+
+- **Single JD comparison only.** Ranks candidates against one job description at a time — multi-JD matching + role-recommendation engine on the roadmap.
+- **No bias auditing yet.** The LLM judges on the criteria HR provides; it does not yet flag potentially biased criteria, demographic skew, or output patterns.
+- **Local MongoDB only.** v0.1 stores resume data on a local Mongo instance; cloud-deployed multi-tenant storage planned next.
+- **Final decision stays with humans.** SmartHire produces structured evidence and a ranking. It does not auto-reject or auto-hire — and won't.
 
 ## 🤝 Contributing
 Contributions are welcome! To contribute:
