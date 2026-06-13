@@ -1,134 +1,106 @@
-# SmartHire  
-SmartHire is an AI-powered **resume screening and candidate ranking** system designed to streamline the hiring process. Using **LLM-powered justifications**, it analyzes resumes against job requirements and provides structured comparisons to help HR teams make data-driven hiring decisions.
+# SmartHire
 
-![SmartHire](UI.png)
+> *Hiring is a two-sided problem. SmartHire is the recruiter side — read the resumes, show the work, let the human decide.*
 
-## Form
-![SmartHire](Form.png)
-
-## Candidate Comparison 
-Candidature of Isabella Moore, Jack Anderson, Emma Wilson, David Lee are all AI Generated. 
-Any resemblance to real persons, living or dead, is purely coincidental.
-
-![SmartHire](BestFit.png)
-
-![SmartHire](NextMatch.png)
-
-## 🏗️ Architecture
-
-![SmartHire Architecture](architecture.png)
-
-**Pipeline:** Resume upload → `pdfplumber` parse → structured candidate JSON → MongoDB store → **Groq Gemma 2-9B** analyst (Education Match · Experience Match · Skill Fit · Role Fit · SWOT) → ranker → HR dashboard for side-by-side comparison. The LLM produces evidence and scores. The human still decides.
-
-## 🚀 Tech Stack  
-
-- ![Streamlit](https://img.shields.io/badge/Streamlit-1.43.1-red?logo=streamlit)  
-- ![MongoDB](https://img.shields.io/badge/MongoDB-6.0-green?logo=mongodb)  
-- ![LangChain](https://img.shields.io/badge/LangChain-0.3.20-blue?logo=python)  
-- ![Groq](https://img.shields.io/badge/Groq-0.18.0-green?logo=python)  
-- ![Pydantic](https://img.shields.io/badge/Pydantic-2.7.0-orange?logo=python)  
-
-## ✨ Features  
-
-✅ **AI-Powered Resume Screening**: Compares resumes with job criteria and ranks candidates based on skills, experience, and education.  
-
-✅ **Structured LLM Justifications**: Uses **Groq’s Gemma 2-9B** to generate structured candidate evaluations, including **Education Match, Experience Match, Skill Fit, Role Fit, and SWOT Analysis**.  
-
-✅ **Candidate Comparison**: Displays top candidates side by side in **Streamlit columns** for easy evaluation.  
-
-✅ **Expander for Alternative Matches**: Shows the next-best candidates with justifications.  
-
-✅ **Resume Storage & Retrieval**: Uses **MongoDB** to store and retrieve structured resume data.  
+Most resume screeners are keyword matchers — they reject 90% of candidates because the word "Kubernetes" isn't on the page. SmartHire reads instead. It uses an LLM to evaluate each resume against the job criteria on five real dimensions, ranks the candidates with structured justifications, and shows HR teams the *evidence* — not just the score.
 
 ---
 
-## 📥 Installation  
+## Architecture
 
-Follow these steps to set up **SmartHire**:
+![SmartHire Architecture](architecture.png)
 
-### 1️⃣ Clone the repository  
+**Pipeline:** Resume upload → `pdfplumber` parse → structured candidate JSON → MongoDB store → **Groq Gemma 2-9B** analyst (Education Match · Experience Match · Skill Fit · Role Fit · SWOT) → ranker → HR dashboard for side-by-side comparison.
+
+The LLM produces evidence and scores across five dimensions. The human still decides. SmartHire is designed to *surface signal* — not to auto-reject candidates a keyword filter would have missed.
+
+---
+
+## What it does
+
+| Stage | What happens |
+|---|---|
+| **Parse** | `pdfplumber` + `LangChain` extract structured candidate JSON from raw resumes |
+| **Store** | MongoDB persists each candidate's parsed profile — searchable, reusable across roles |
+| **Analyze** | Groq Gemma 2-9B scores each resume against the JD on five dimensions, with reasoning |
+| **Rank** | Best fit, next match, alternatives — each with a confidence band and SWOT analysis |
+| **Compare** | Streamlit dashboard renders top candidates side-by-side for the recruiter to review |
+
+---
+
+## Demo
+
+![SmartHire UI](UI.png)
+
+### Job criteria input
+![Job criteria form](Form.png)
+
+### Side-by-side candidate comparison
+*Candidates Isabella Moore, Jack Anderson, Emma Wilson, David Lee are AI-generated. Any resemblance to real persons is coincidental.*
+
+![Best fit candidate](BestFit.png)
+
+![Next match candidates](NextMatch.png)
+
+---
+
+## Tech Stack
+
+| Layer | Stack |
+|---|---|
+| Frontend | Streamlit |
+| Backend | Python · LangChain · Pydantic |
+| LLM | Groq Gemma 2-9B (structured-output mode) |
+| Storage | MongoDB |
+| Parsing | pdfplumber |
+
+---
+
+## Run locally
+
 ```bash
-git clone https://github.com/your-username/SmartHire.git
+# 1. Clone
+git clone https://github.com/coding-chemist/SmartHire.git
 cd SmartHire
-```
 
-### 2️⃣ Set up a virtual environment
-```bash
+# 2. Environment
 conda create --name smarthire-env python=3.13
 conda activate smarthire-env
-```
-
-### 3️⃣ Install dependencies
-```bash
 pip install -r requirements.txt
-```
 
-### 4️⃣ Ensure the following dependencies are in requirements.txt
-```txt
-    streamlit==1.43.1
-    pymongo==4.6.3
-    langchain==0.3.20
-    langchain-groq==0.2.5
-    langchain-ollama==0.2.3
-    groq==0.18.0
-    pydantic==2.7.0
-    python-dotenv==1.0.1
-```
+# 3. MongoDB (local)
+brew services start mongodb-community   # mac
+# or: mongod --dbpath /path/to/db        # other platforms
 
-## ⚙️ Prerequisites
-- Python 3.13 or higher
-- MongoDB (running locally or a cloud instance)
-- Required Python libraries (see requirements.txt)
-
-## ▶️ Running the App
-### 1️⃣ Start MongoDB (if running locally)
-```bash
-mongod --dbpath /path/to/mongodb/data
-```
-
-On Mac, if you installed MongoDB via Homebrew, you can start it using:
-```bash
-brew services start mongodb-community
-```
-
-### 2️⃣ Run the Streamlit app
-```bash
+# 4. Run
 streamlit run app.py
+# → http://localhost:8501
 ```
-The app will be available at http://localhost:8501.
 
-## 🏆 Usage
-- 1️⃣ **Upload Resumes:** Upload candidate resumes (structured JSON format).
-- 2️⃣ **Fill HR Job Criteria:** Enter required skills, experience, and education.
-- 3️⃣ **AI-Powered Screening:** SmartHire ranks candidates based on the best match.
-- 4️⃣ **Review Justifications:** Compare candidates side by side with structured LLM-generated justifications.
-- 5️⃣ **Explore Alternative Matches:** View the next-best candidates under an expander section.
+`.env` requires:
+- `GROQ_API_KEY` — get it at [console.groq.com](https://console.groq.com)
+- `MONGO_URI` — defaults to `mongodb://localhost:27017` for local
 
-## ⚠️ Known Limitations (v0.1)
+---
+
+## Known Limitations (v0.1)
 
 - **Single JD comparison only.** Ranks candidates against one job description at a time — multi-JD matching + role-recommendation engine on the roadmap.
-- **No bias auditing yet.** The LLM judges on the criteria HR provides; it does not yet flag potentially biased criteria, demographic skew, or output patterns.
+- **No bias auditing yet.** The LLM judges on the criteria HR provides; it does not yet flag potentially biased criteria, demographic skew, or output patterns. Caveat emptor.
 - **Local MongoDB only.** v0.1 stores resume data on a local Mongo instance; cloud-deployed multi-tenant storage planned next.
 - **Final decision stays with humans.** SmartHire produces structured evidence and a ranking. It does not auto-reject or auto-hire — and won't.
 
-## 🤝 Contributing
-Contributions are welcome! To contribute:
+---
 
-- Fork the repository.
-- Create a new feature branch (git checkout -b feature-name).
-- Commit your changes and push to your fork.
-- Submit a pull request.
+## License
 
-## 📜 License
-SmartHire is open-source software licensed under the **GNU General Public License v3.0 (GPL-3.0)**.  
+GPL-3.0. See [`LICENSE`](LICENSE).
 
-This means:  
-- You are free to **use, modify, and distribute** the software.  
-- Any modifications or derivative works **must also be open-source** under the same GPL-3.0 license.  
-- For more details, see the full license text in the `LICENSE` file or visit [GNU GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).  
+---
 
-## 🙏 Acknowledgements
-- **Streamlit** for the app UI.
-- **LangChain + Groq** for LLM-driven resume screening.
-- **MongoDB** for candidate storage and retrieval.
-- **Pydantic** for structured data validation.
+## Author
+
+**Sindhuja Sivaraman** · MSc Chemistry · MS Data Science → AI/ML Engineer
+[Portfolio](https://coding-chemist.vercel.app) · [GitHub](https://github.com/coding-chemist)
+
+> *Surface the signal. Show the work. Let the human decide.*
